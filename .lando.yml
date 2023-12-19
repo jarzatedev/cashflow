@@ -1,0 +1,28 @@
+name: cashflow
+recipe: laravel
+config:
+  webroot: public
+  php: 8.2
+  database: mariadb
+  via: nginx
+proxy:
+  appserver_nginx:
+    - cashflow.lndo.site
+services:
+  node:
+    type: node:18
+    scanner: false
+    ports:
+      - 3009:3009
+    build:
+      - npm install
+tooling:
+  npm:
+    service: node
+    cmd: npm
+  dev:
+    service: node
+    cmd: npm run dev
+  build:
+    service: node
+    cmd: npm run build
